@@ -3,7 +3,7 @@ import { PhotoType } from "../types/photo";
 
 export const photoAPI = createApi({
   reducerPath: "photoAPI",
-  baseQuery: fetchBaseQuery({ baseUrl: "https://api.jsonbin.io/v3/b/63e56abdace6f33a22da6c16" }),
+  baseQuery: fetchBaseQuery({ baseUrl: "https://api.npoint.io/4354f16e00fe23ae3ffd" }),
   endpoints: (build) => ({
     fetchPhotos: build.query<PhotoType[], number>({
       query: (limit = 5) => ({
