@@ -2,10 +2,14 @@ import { FC } from "react";
 import { chatAPI } from "../../../services/chatServices";
 import Message from "./Message";
 
-interface MessagesBlockProps {}
+interface MessagesBlockProps {
+  chatId: number;
+}
 
-const MessagesBlock: FC<MessagesBlockProps> = () => {
-  const { data: messages, error, isLoading } = chatAPI.useFetchMessagesQuery({ chatId: 2 }, { pollingInterval: 1000 });
+const MessagesBlock: FC<MessagesBlockProps> = (props) => {
+  const { chatId } = props;
+
+  const { data: messages, error, isLoading } = chatAPI.useFetchMessagesQuery({ chatId });
 
   return (
     <div>
