@@ -17,6 +17,9 @@ const platinumStrategy = (amount) => {
 };
 
 class AutoCartContext {
+  amount: number;
+  discount: (amount: number) => void;
+
   constructor(discount) {
     this.discount = discount;
     this.amount = 0;
@@ -74,6 +77,8 @@ const adminStrategy = (login) => {
 };
 
 class CreateUserContext {
+  setUserRightsStrategy: (login: string) => void;
+
   constructor(setUserRightsStrategy) {
     this.setUserRightsStrategy = setUserRightsStrategy;
   }
