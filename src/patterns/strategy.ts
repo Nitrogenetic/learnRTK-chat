@@ -1,4 +1,7 @@
 // Паттерн Стратегия
+// То, что использует стратегию - контекст, поэтому эти функции так подписаны, хотя это необязательно.
+// Стратегия может быть любой.
+// Класс с конструктором (контекст) остается неизменным, меняются лишь стратегиию.
 
 // Cart Example
 const baseStrategy = (amount) => {
@@ -13,7 +16,7 @@ const platinumStrategy = (amount) => {
   return amount * 0.6;
 };
 
-class AutoCart {
+class AutoCartContext {
   constructor(discount) {
     this.discount = discount;
     this.amount = 0;
@@ -28,9 +31,9 @@ class AutoCart {
   }
 }
 
-export const baseCustomer = new AutoCart(baseStrategy);
-export const premiumCustomer = new AutoCart(premiumStrategy);
-export const platinumCustomer = new AutoCart(platinumStrategy);
+export const baseCustomer = new AutoCartContext(baseStrategy);
+export const premiumCustomer = new AutoCartContext(premiumStrategy);
+export const platinumCustomer = new AutoCartContext(platinumStrategy);
 
 baseCustomer.setAmount(50000);
 console.log(baseCustomer.checkout()); //50000
@@ -70,10 +73,7 @@ const adminStrategy = (login) => {
   };
 };
 
-// Стратегия может быть любой и мы передаем ее в конструктор
-// Класс с конструктором остается неизменным, меняются лишь стратегии
-
-class CreateUser {
+class CreateUserContext {
   constructor(setUserRights) {
     this.setUserRights = setUserRights;
   }
@@ -84,9 +84,9 @@ class CreateUser {
 }
 
 // Генерируем объекты с помощью определенной стратегии
-export const userRights = new CreateUser(userStrategy);
-export const moderatorRights = new CreateUser(moderatorStrategy);
-export const adminRights = new CreateUser(adminStrategy);
+export const userRights = new CreateUserContext(userStrategy);
+export const moderatorRights = new CreateUserContext(moderatorStrategy);
+export const adminRights = new CreateUserContext(adminStrategy);
 
 console.log(userRights.getRights("Peter"));
 console.log(moderatorRights.getRights("Peter Parker"));
@@ -94,20 +94,20 @@ console.log(adminRights.getRights("Peter Parker - Spider Man"));
 
 // Реализация без класса
 
-const logger = (strategy, level, message) => {
+const loggerContext = (strategy, level, message) => {
   return strategy(level, message);
 };
 
 const logToConsoleStrategy = (level, message) => console[level](message);
 
-logger(logToConsoleStrategy, "log", "Это сообщение будет в консоле");
+loggerContext(logToConsoleStrategy, "log", "Это сообщение будет в консоле");
 
 // Реализация User без класса
 
-const userRightsCreator = (strategy, login) => {
+const userRightsCreatorContext = (strategy, login) => {
   return strategy(login);
 };
 
-console.log(userRightsCreator(userStrategy, "111"));
-console.log(userRightsCreator(moderatorStrategy, "222"));
-console.log(userRightsCreator(adminStrategy, "333"));
+console.log(userRightsCreatorContext(userStrategy, "111"));
+console.log(userRightsCreatorContext(moderatorStrategy, "222"));
+console.log(userRightsCreatorContext(adminStrategy, "333"));
