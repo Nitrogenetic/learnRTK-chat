@@ -74,12 +74,12 @@ const adminStrategy = (login) => {
 };
 
 class CreateUserContext {
-  constructor(setUserRights) {
-    this.setUserRights = setUserRights;
+  constructor(setUserRightsStrategy) {
+    this.setUserRightsStrategy = setUserRightsStrategy;
   }
 
   getRights(login) {
-    return this.setUserRights(login);
+    return this.setUserRightsStrategy(login);
   }
 }
 
